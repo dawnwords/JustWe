@@ -1,0 +1,123 @@
+<REQ name="userlogin">
+    <USER_ID>登录用户ID</USER_ID>
+    <PASSWORD>口令</PASSWORD>
+    <VERSIONINFO>版本信息</VERSIONINFO>
+</REQ>
+
+<REQ name="userlogoff">
+    <USER_ID>登录用户ID</USER_ID>
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+</REQ>
+
+<REQ name="check_user">
+    <USER_ID>登录用户ID</USER_ID>
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+    <MODULE_ID>原模块ID</MODULE_ID>
+</REQ>
+
+<REQ name="change_password">
+    <USER_ID>登录用户ID</USER_ID>
+    <OLD_PASSWORD>旧口令</OLD_PASSWORD>
+    <NEW_PASSWORD>新口令</NEW_PASSWORD>
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+</REQ>
+
+<REQ name="firm_info">
+    <USER_ID>登录用户ID</USER_ID>
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+</REQ>
+
+<REQ name="ordersubmit">
+    <USER_ID>登录用户ID</USER_ID>
+    <CUSTOMER_ID>二级客户代码</CUSTOMER_ID>
+    <BUY_SELL>买卖标志：1买；2卖</BUY_SELL>
+    <COMMODITY_ID>商品统一代码</COMMODITY_ID>
+    <PRICE>委托价</PRICE>
+    <QTY>委托量</QTY>
+    <SETTLE_BASIS>委托类型：1开仓；2平仓；</SETTLE_BASIS>
+    <CLOSEMODE>平仓方式：1不指定平仓；2指定时间平仓</CLOSEMODE>
+    <TIMEFLAG>指定时间标志：1平今仓； 2平历史仓</TIMEFLAG>
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+</REQ>
+
+<REQ name="ordercancel">
+    <USER_ID>登录用户ID</USER_ID>
+    <ORDER_NO>委托单号</ORDER_NO>
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+</REQ>
+
+<REQ name="querytrade">
+    <USER_ID>登录用户ID</USER_ID>
+    <LAST_TRADE_ID>最后成交ID(空表示全部)</LAST_TRADE_ID>
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+</REQ>
+
+<REQ name="sys_time_query">
+    <USER_ID>登录用户ID</USER_ID>
+    <LAST_ID>最后广播ID(空表示全部)</LAST_ID>
+    <TD_CNT>成交记录数</TD_CNT>  
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+    <CU_LG>
+        是否刚登录
+        0：不是；
+        1：是
+        【说明：此时返回包的NEW_T为0，<TDRP>节点没有，但TD_TTL成交记录总数需要计算返回】
+    </CU_LG>
+</REQ>
+
+<REQ name="my_order_query">
+    <USER_ID>登录用户ID</USER_ID>
+    <BUY_SELL>买卖(1/2)（空表示所有）</BUY_SELL>
+    <ORDER_NO>委托单号（空表示所有）</ORDER_NO>
+    <COMMODITY_ID>商品统一代码（空表示所有）</COMMODITY_ID>
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+    <STARTNUM>第几条</STARTNUM>
+    <RECCNT>要多少条记录</RECCNT>
+    <SORTFLD>排序字段</SORTFLD>
+    <ISDESC>升降序  0：升序；1：降序；</ISDESC>
+    <UT>更新时间, 微妙表示，第一次传可传0</UT>
+</REQ>
+
+<REQ name="holding_query">
+    <USER_ID>登录用户ID</USER_ID>
+    <COMMODITY_ID>商品统一代码（空表示所有）</COMMODITY_ID>
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+    <STARTNUM>第几条</STARTNUM>
+    <RECCNT>要多少条记录</RECCNT>
+    <SORTFLD>排序字段</SORTFLD>
+    <ISDESC>
+        升降序
+        0：升序
+        1：降序
+    </ISDESC>
+</REQ>
+
+<REQ name="my_weekorder_query">
+    <USER_ID>登录用户ID</USER_ID>
+    <BUY_SELL>买卖(1/2)（空表示所有）</BUY_SELL>
+    <ORDER_NO>委托单号（空表示所有）</ORDER_NO>
+    <COMMODITY_ID>商品统一代码（空表示所有）</COMMODITY_ID>
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+    <STARTNUM>第几条</STARTNUM>
+    <RECCNT>要多少条记录</RECCNT>
+    <SORTFLD>排序字段</SORTFLD>
+    <ISDESC>
+        升降序
+        0：升序
+        1：降序
+    </ISDESC>
+    <UT>更新时间, 微妙表示，第一次传可传0</UT>
+</REQ>
+
+<REQ name="commodity_data_query">
+    <USER_ID>登录用户ID</USER_ID>
+    <COMMODITY_ID>商品统一代码（空表示所有）</COMMODITY_ID>
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+</REQ>
+
+<REQ name="querycommodity">
+    <USER_ID>登录用户ID</USER_ID>
+    <COMMODITY_ID>商品统一代码（空表示所有）</COMMODITY_ID>
+    <SESSION_ID>SESSION_ID</SESSION_ID>
+</REQ>
+

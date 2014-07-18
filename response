@@ -1,0 +1,395 @@
+<REP name="userlogin">
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            >0成功即SessionID, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>
+        <MODULE_ID>模块ID</MODULE_ID>
+        <LAST_TIME>上次登录时间</LAST_TIME>
+        <LAST_IP>上次登录IP</LAST_IP>
+        <CHG_PWD>是否需要修改密码；1：是；2：否；</CHG_PWD>
+        <NAME>登录用户名称</NAME>
+    </RESULT>
+</REP>
+
+<REP name="userlogoff">
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>    
+    </RESULT>
+</REP>
+
+<REP name="check_user">
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>    
+        <MODULE_ID>目标模块ID</MODULE_ID>
+    </RESULT>
+</REP>
+
+<REP name="change_password">
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>    
+    </RESULT>
+</REP>
+
+<REP name="firm_info">
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>    
+    </RESULT>
+    <RESULTLIST>            
+        <REC>
+        // 说明：为了兼容原来的远期和代理，把原来的协议做了个并集，
+        //所以新版程序要给那些相同名称但标签名不一致的都要赋值，也
+        //即标签颜色是粉红色的
+            <FI>交易商ID</FI>    
+            <FN>交易商名称</FN>  
+            <IF>期初余额</IF>   
+            <CM>上日保证金</CM>  
+            <CF>上日浮亏</CF>       
+            <RM>当日保证金</RM>  
+            <RF>当日浮亏</RF>   
+            <OR_F>远期委托冻结资金</OR_F>   
+            <OT_F>其它冻结资金</OT_F> 
+            <UF>当前可用资金</UF> 
+            <FEE>当日手续费</FEE>    
+            <PL>当日转让盈亏</PL> 
+            //交易代码标签，为了兼容老的协议，保留<CDLST>，新增一个//<CDRS>标签,都需要赋值
+            <CDLST>
+                <CD>交易代码</CD>
+            </CDLST>    
+            <CDRS>
+                <CDS>
+                    <CD>交易代码</CD>
+                </CDS>
+            </CDRS> 
+            <EQT>当前权益</EQT> 
+            <IOF>出入金</IOF>  
+            <HPF>订货盈亏</HPF> 
+            <OC>其它变化</OC>   
+            <PGF>质押资金</PGF> 
+        </REC>
+    </RESULTLIST>
+</REP>
+
+<REP name="ordersubmit">
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>    
+    </RESULT>
+</REP>
+
+<REP name="ordercancel">
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>    
+    </RESULT>
+</REP>
+
+<REP name="querytrade">
+            <RESULT>
+                <RETCODE>返回码</RETCODE>
+                    =0成功, 其他为失败，错误描述在MESSAGE 中
+                <MESSAGE>返回的提示消息内容</MESSAGE>
+            </RESULT>
+    <RESULTLIST>            
+        <REC>
+            <TR_N>成交号</TR_N>
+            <OR_N>委托单号</OR_N>
+            <TI>成交时间</TI>
+            <TY>买卖标志：1买；2卖</TY>
+            <SE_F>委托类型：1开仓；2平仓</SE_F>
+            <TR_I>交易员ID</TR_I>
+            <FI_I>交易商ID</FI_I>
+            <CU_I>二级客户代码</CU_I>
+            <CO_I>商品统一代码</CO_I>
+            <PR>成交价格</PR>
+            <QTY>成交数量</QTY>
+            <O_PR>转让价</O_PR>
+            <LIQPL>平仓盈亏</LIQPL>
+            <COMM>交易手续费</COMM>
+            <S_TR_N>被平仓成交单号</S_TR_N>
+            <A_TR_N>交易市场或撮合成交号 </A_TR_N>    
+            <TR_T>
+                成交类型：
+                1正常交易（开仓，平仓）
+                2代理系统强平
+                3交易市场强平
+                4委托交易（开仓，平仓）
+                5无委托成交
+                6协议平仓
+            </TR_T> 
+            <TIMEFLAG>
+                平仓类型：
+                1：平今仓；
+                2：平历史仓
+                开仓时此节点为空
+            </TIMEFLAG>
+        </REC>
+    </RESULTLIST>
+</REP>
+
+<REP name="sys_time_query">
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>    
+        <CU_T>当前时间</CU_T>   
+        <CU_D>当前日期</CU_D>   
+        <TV_U>微妙</TV_U> 
+        <L_ID>最后广播ID(空表示无消息)</L_ID>
+        <CON>广播消息内容</CON>
+        <BCRS>
+        <BCS>
+        <BC>广播消息内容</BC>
+        </BCS>
+        </BCRS>
+        <NEW_T>
+            是否有新成交：
+            0:没有
+            1：有
+        </NEW_T>
+        <TD_TTL>成交记录总数</TD_TTL>
+        <TDRP>
+            <TDS>
+            <OR_N>委托单号</OR_N>
+            <CO_I>商品统一代码</CO_I>
+            <TDQTY>当前成交数量</TDQTY>
+            </TDS>
+        </TDRP>
+        <DAY>交易日(格式: dd )</DAY>
+    </RESULT>
+</REP>
+
+<REP name="my_order_query">
+            <RESULT>
+                <RETCODE>返回码</RETCODE>
+                    =0成功, 其他为失败，错误描述在MESSAGE 中
+                <MESSAGE>返回的提示消息内容</MESSAGE>    
+        <TTLREC>总记录数</TTLREC>   
+        <UT>最大更新时间, 微妙表示</UT>
+                    </RESULT>
+    <RESULTLIST>    
+        <REC>
+            <OR_N>委托单号</OR_N>   
+            <TIME>下单时间</TIME>   
+            <STA>状态：
+                1:已委托
+                2:部分成交
+                3:全部成交
+                5:全部撤单
+                6:部分成交后撤单
+            </STA>  
+            <TYPE>买卖标志：1买；2卖</TYPE> 
+            <SE_F>委托类型：1开仓；2平仓</SE_F>   
+            <TR_I>交易员ID</TR_I>  
+            <FI_I>交易商ID</FI_I>  
+            <CU_I>二级客户代码 </CU_I>    
+            <CO_I>商品统一代码</CO_I> 
+            <PRI>委托价格</PRI> 
+            <QTY>委托数量</QTY> 
+            <BAL>剩余量</BAL>  
+            <L_P>指定平仓价</L_P>    
+            <WD_T>撤单时间</WD_T>   
+            <C_F>平仓标志
+                0：正常平仓
+                1：代为转让
+                2：强制转让
+            </C_F>  
+            <B_T_T>仓单交易类型
+                0：正常（默认）
+                1：卖仓单
+                2：抵顶转让
+            </B_T_T>
+            <TIMEFLAG>平仓类型：
+                0：不指定平仓
+                1：平今仓
+                2：平历史仓
+                开仓时此节点为空
+            </TIMEFLAG>
+        </REC>
+    </RESULTLIST>
+</REP>
+
+<REP name="holding_query">
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>    
+        <TTLREC>总记录数</TTLREC>   
+    </RESULT>
+    <RESULTLIST>    
+        <REC>
+            <CO_I>商品统一代码</CO_I>
+            <CU_I>交易用户ID </CU_I>
+            <BU_H>买进订货量</BU_H>
+            <SE_H>卖出订货量</SE_H>
+            <B_V_H>可交收买量</B_V_H>
+            <S_V_H>可交收卖量</S_V_H>
+            <BU_A>买平均价</BU_A>
+            <SE_A>卖平均价</SE_A>
+            <GO_Q>抵顶数量</GO_Q>
+            <FL_P>浮动赢亏</FL_P>
+            <MAR>保证金</MAR>  
+            <NP_PF>最新价赢亏</NP_PF>
+        </REC>
+    </RESULTLIST>
+</REP>
+
+<REP name="my_weekorder_query">
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>    
+        <TTLREC>总记录数</TTLREC>   
+        <UT>最大更新时间, 微妙表示</UT>
+    </RESULT>
+    <RESULTLIST>    
+        <REC>
+            <OR_N>委托单号</OR_N>   
+            <TIME>下单时间</TIME>   
+            <STA>
+                状态：
+                1:已委托
+                2:部分成交
+                3:全部成交
+                5:全部撤单
+                6:部分成交后撤单
+            </STA>  
+            <TYPE>
+                买卖标志：
+                1买
+                2卖
+            </TYPE> 
+            <SE_F>
+                委托类型：
+                1开仓
+                2平仓
+            </SE_F>   
+            <TR_I>交易员ID</TR_I>  
+            <FI_I>交易商ID</FI_I>  
+            <CU_I>二级客户代码 </CU_I>    
+            <CO_I>商品统一代码</CO_I> 
+            <PRI>委托价格</PRI> 
+            <QTY>委托数量</QTY> 
+            <BAL>剩余量</BAL>  
+            <L_P>指定平仓价</L_P>    
+            <WD_T>撤单时间</WD_T>   
+            <C_F>
+                平仓标志
+                0：正常平仓
+                1：代为转让
+                2：强制转让
+            </C_F>  
+            <B_T_T>
+                仓单交易类型
+                0：正常（默认）
+                1：卖仓单
+                2：抵顶转让
+            </B_T_T>
+            <TIMEFLAG>
+                平仓类型：
+                0：不指定平仓
+                1：平今仓
+                2：平历史仓
+                开仓时此节点为空
+            </TIMEFLAG>
+        </REC>
+    </RESULTLIST>
+</REP>
+
+<REP name="commodity_data_query">
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>    
+    </RESULT>
+    <RESULTLIST>    
+        <REC>
+            <CO_I>商品统一代码</CO_I> 
+            <CO_N>品名</CO_N> 
+            <L_SET>交收日期</L_SET> 
+            <PR_C>昨结算</PR_C>    
+            <BID>最高买价</BID> 
+            <BI_D>最高买价的买量</BI_D>    
+            <OFFER>最低卖价</OFFER> 
+            <OF_D>最低卖价的卖量</OF_D>    
+            <HIGH>最高</HIGH> 
+            <LOW>最低</LOW>   
+            <LAST>最新</LAST> 
+            <AVG>平均</AVG>   
+            <CHA>涨跌(有正负)</CHA>  
+            <VO_T>总成交量</VO_T>   
+            <TT_O>订货量</TT_O>    
+        </REC>
+    </RESULTLIST>
+</REP>
+
+<REP name="querycommodity">
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>    
+    </RESULT>
+    <RESULTLIST>    
+        <REC>
+            <MA_I>市场代码</MA_I>
+            <CO_I>商品ID</CO_I>
+            <CO_N>商品名称</CO_N>
+            <L_SET>交收日期</L_SET>
+            <STA>
+                商品状态
+                0：表示当前有效记录
+                1：表示已经结束的历史商品，或转入交收
+                2：暂停交易
+            </STA>
+            <CT_S>交易单位</CT_S>
+            <SPREAD>最小变动价位</SPREAD>
+            <SP_U>上限</SP_U>
+            <SP_D>下限</SP_D>
+            <MA_A>
+                保证金算法：1按百分比;2按交易数量
+            </MA_A>
+            <BMA>买方保证金</BMA>
+            <SMA>卖方保证金</SMA>
+            <BAS>买方担保金</BAS>
+            <SAS>卖方担保金</SAS>
+            <PR_C>昨结算</PR_C>
+            <FE_A>
+                交易手续费算法：
+                1按百分比;
+                2按交易数量
+            </FE_A>
+            <TE_T>买订立交易手续费</TE_T>
+            <STE_T>卖订立交易手续费</STE_T>
+            <BCHFE>买转让历史订货交易手续费</BCHFE>
+            <SCHFE>卖转让历史订货交易手续费</SCHFE>
+            <BCTFE>买转让今订货交易手续费</BCTFE>
+            <SCTFE>卖转让今订货交易手续费</SCTFE>
+            <BCFFE>买强制转让交易手续费<BCFFE>
+            <SCFFE>卖强制转让交易手续费</SCFFE>
+            <SFE_A>
+                交收手续费算法：
+                1按百分比;
+                2按交易数量
+            </SFE_A>
+            <TM_SET>交收买手续费</TM_SET> 
+            <STM_SET>交收卖手续费</STM_SET>
+            <BRDID>所属品种ID</BRDID>
+            <B_T_M>
+                所属品种交易模式：  
+                0：标准；
+                1买专场；
+                2：卖专场；
+            </B_T_M>
+        </REC>
+    </RESULTLIST>
+</REP>
+
