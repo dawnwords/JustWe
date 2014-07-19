@@ -94,11 +94,11 @@
 </REP>
 
 <REP name="querytrade">
-            <RESULT>
-                <RETCODE>返回码</RETCODE>
-                    =0成功, 其他为失败，错误描述在MESSAGE 中
-                <MESSAGE>返回的提示消息内容</MESSAGE>
-            </RESULT>
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>
+    </RESULT>
     <RESULTLIST>            
         <REC>
             <TR_N>成交号</TR_N>
@@ -169,13 +169,13 @@
 </REP>
 
 <REP name="my_order_query">
-            <RESULT>
-                <RETCODE>返回码</RETCODE>
-                    =0成功, 其他为失败，错误描述在MESSAGE 中
-                <MESSAGE>返回的提示消息内容</MESSAGE>    
+    <RESULT>
+        <RETCODE>返回码</RETCODE>
+            =0成功, 其他为失败，错误描述在MESSAGE 中
+        <MESSAGE>返回的提示消息内容</MESSAGE>    
         <TTLREC>总记录数</TTLREC>   
         <UT>最大更新时间, 微妙表示</UT>
-                    </RESULT>
+    </RESULT>
     <RESULTLIST>    
         <REC>
             <OR_N>委托单号</OR_N>   

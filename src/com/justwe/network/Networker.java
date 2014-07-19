@@ -1,18 +1,20 @@
 package com.justwe.network;
 
-import java.io.BufferedReader;
-import java.io.Closeable;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.lang.reflect.Field;
+import java.io.*;
+import java.lang.reflect.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 import com.justwe.bean.request.LoginRequest;
 import com.justwe.bean.request.Request;
 import com.justwe.bean.request.RequestName;
 import com.justwe.bean.response.LoginResponse;
+import com.justwe.bean.response.Result;
 import com.justwe.bean.response.Response;
+import com.justwe.util.XMLUtil;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Pattern;
 
 public abstract class Networker<Q extends Request, P extends Response> extends
 		Thread {
@@ -34,7 +36,8 @@ public abstract class Networker<Q extends Request, P extends Response> extends
 		BufferedReader reader = null;
 		try {
 			writer = new PrintWriter(conn.getOutputStream());
-			writer.write(getRequestXML());
+			writer.write(XMLUtil.getRequestXML(getRequestName(),
+					getRequestContent()));
 			writer.flush();
 			reader = new BufferedReader(new InputStreamReader(
 					conn.getInputStream()));
@@ -52,10 +55,14 @@ public abstract class Networker<Q extends Request, P extends Response> extends
 		}
 	}
 
-	private P getResponseFromXML(String response) {
-		System.out.println(response);
-		return null;
+	private P getResponseFromXML(String responseString) {
+		System.out.println(responseString);
+		ParameterizedType genericSuperclass = (ParameterizedType) getClass()
+				.getGenericSuperclass();
+		Class<P> clazz = (Class<P>) genericSuperclass.getActualTypeArguments()[1];
+		return XMLUtil.parseXML(responseString, clazz);
 	}
+
 
 	private void close(Closeable closeable) {
 		if (closeable != null) {
@@ -65,19 +72,6 @@ public abstract class Networker<Q extends Request, P extends Response> extends
 				e.printStackTrace();
 			}
 		}
-	}
-
-	private String getRequestXML() throws Exception {
-		final String requestName = ":requestname:";
-		final String reqeustContent = ":content:";
-		final String requestTemplate = "<?xml version='1.0' encoding = 'GB2312'?><MEBS_MOBILE>"
-				+ "<REQ name='"
-				+ requestName
-				+ "'>"
-				+ reqeustContent
-				+ "</REQ></MEBS_MOBILE>";
-		return requestTemplate.replaceFirst(requestName, getRequestName())
-				.replaceFirst(reqeustContent, getRequestContent());
 	}
 
 	private String getRequestName() {
@@ -120,9 +114,9 @@ public abstract class Networker<Q extends Request, P extends Response> extends
 	protected abstract void onError(String error);
 
 	public static void main(String[] args) {
-		new Networker<LoginRequest, LoginResponse>() {
+		new Networker<LoginRequest, Result>() {
 			@Override
-			protected void onResponse(LoginResponse response) {
+			protected void onResponse(Result response) {
 
 			}
 
