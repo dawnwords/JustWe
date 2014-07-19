@@ -1,7 +1,6 @@
 package com.justwe.util;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 import java.util.regex.*;
 
 public class XMLUtil {
@@ -18,27 +17,29 @@ public class XMLUtil {
 				reqeustContent, content);
 	}
 
-	public static <T> T parseXML(String xml, Class<T> clazz) {
-		T response = clazz.newInstance();
-		for (Field field : response.getClass().getDeclaredFields()) {
+	public static <T> T parseXML(String xml, Class<T> clazz) throws Exception {
+		T result = clazz.newInstance();
+		for (Field field : ReflectUtil.getAllFields(result.getClass())) {
 			String name = field.getName();
 			String pattern = "<name>([\\s\\S]*)</name>"
 					.replaceAll("name", name);
 			Matcher m = Pattern.compile(pattern).matcher(xml);
 			if (m.find()) {
-				Class fieldClass = field.getClass();
-				String content = m.group();
+				Class<?> fieldClass = field.getType();
+				String content = m.group().replaceAll("<[^>]*>", "");
 				Object value;
 				if (int.class.equals(fieldClass)) {
 					value = Integer.parseInt(content);
+				} else if (long.class.equals(fieldClass)) {
+					value = Long.parseLong(content);
 				} else if (String.class.equals(fieldClass)) {
 					value = content;
 				} else {
 					value = parseXML(content, fieldClass);
 				}
-				field.set(response, value);
+				ReflectUtil.forceSet(field, result, value);
 			}
 		}
-		return response;
+		return result;
 	}
 }

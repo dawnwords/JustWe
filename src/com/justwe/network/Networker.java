@@ -1,20 +1,19 @@
 package com.justwe.network;
 
-import java.io.*;
-import java.lang.reflect.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.regex.Matcher;
 
-import com.justwe.bean.request.LoginRequest;
-import com.justwe.bean.request.Request;
-import com.justwe.bean.request.RequestName;
-import com.justwe.bean.response.LoginResponse;
-import com.justwe.bean.response.Result;
-import com.justwe.bean.response.Response;
+import com.justwe.bean.request.*;
+import com.justwe.bean.response.*;
+
+import com.justwe.util.IOUtil;
+import com.justwe.util.ReflectUtil;
 import com.justwe.util.XMLUtil;
-import com.sun.org.apache.xalan.internal.xsltc.compiler.Pattern;
 
 public abstract class Networker<Q extends Request, P extends Response> extends
 		Thread {
@@ -46,32 +45,34 @@ public abstract class Networker<Q extends Request, P extends Response> extends
 			while ((line = reader.readLine()) != null) {
 				response += line;
 			}
-			onResponse(getResponseFromXML(response));
+			processResponse(getResponseFromXML(response));
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			close(reader);
-			close(writer);
+			IOUtil.close(reader);
+			IOUtil.close(writer);
 		}
 	}
 
-	private P getResponseFromXML(String responseString) {
+	private void processResponse(P response) {
+		if (response.getReturnCode() < 0) {
+			onError(response.getMessage());
+		} else {
+			onResponse(response);
+		}
+	}
+
+	private String getURL() {
+		return "http://60.28.133.148:16955/tradeweb/mobileServlet";
+	}
+
+	@SuppressWarnings("unchecked")
+	private P getResponseFromXML(String responseString) throws Exception {
 		System.out.println(responseString);
 		ParameterizedType genericSuperclass = (ParameterizedType) getClass()
 				.getGenericSuperclass();
-		Class<P> clazz = (Class<P>) genericSuperclass.getActualTypeArguments()[1];
-		return XMLUtil.parseXML(responseString, clazz);
-	}
-
-
-	private void close(Closeable closeable) {
-		if (closeable != null) {
-			try {
-				closeable.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		return XMLUtil.parseXML(responseString,
+				(Class<P>) genericSuperclass.getActualTypeArguments()[1]);
 	}
 
 	private String getRequestName() {
@@ -82,9 +83,9 @@ public abstract class Networker<Q extends Request, P extends Response> extends
 		String result = "";
 		for (Field field : request.getClass().getDeclaredFields()) {
 			String fieldName = field.getName();
-			field.setAccessible(true);
-			result += "<" + fieldName + ">" + field.get(request) + "</"
-					+ fieldName + ">";
+			result += "<" + fieldName + ">"
+					+ ReflectUtil.forceGet(field, request) + "</" + fieldName
+					+ ">";
 		}
 		return result;
 	}
@@ -100,11 +101,11 @@ public abstract class Networker<Q extends Request, P extends Response> extends
 			conn.setUseCaches(false);
 			conn.setInstanceFollowRedirects(true);
 			conn.setRequestProperty(" Content-Type ",
-					" application/x-www-form-urlencoded ");
+					"application/x-www-form-urlencoded");
 			conn.connect();
 		} catch (Exception e) {
 			e.printStackTrace();
-			onError("network Error");
+			onError("ÍøÂç´íÎó£¡");
 		}
 		return conn;
 	}
@@ -112,22 +113,4 @@ public abstract class Networker<Q extends Request, P extends Response> extends
 	protected abstract void onResponse(P response);
 
 	protected abstract void onError(String error);
-
-	public static void main(String[] args) {
-		new Networker<LoginRequest, Result>() {
-			@Override
-			protected void onResponse(Result response) {
-
-			}
-
-			@Override
-			protected void onError(String error) {
-
-			}
-		}.execute(new LoginRequest("042957382", "111111", ""));
-	}
-
-	private String getURL() {
-		return "http://60.28.133.148:16955/tradeweb/mobileServlet";
-	}
 }
