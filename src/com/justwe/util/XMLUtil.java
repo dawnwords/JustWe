@@ -3,8 +3,10 @@ package com.justwe.util;
 import java.lang.reflect.*;
 import java.util.regex.*;
 
+import com.justwe.bean.request.Request;
+
 public class XMLUtil {
-	public static String getRequestXML(String name, String content) {
+	public static String getRequestXML(String name, Request request) {
 		final String requestName = ":requestname:";
 		final String reqeustContent = ":content:";
 		final String requestTemplate = "<?xml version='1.0' encoding = 'GB2312'?><MEBS_MOBILE>"
@@ -13,6 +15,15 @@ public class XMLUtil {
 				+ "'>"
 				+ reqeustContent
 				+ "</REQ></MEBS_MOBILE>";
+		
+		String content = "";
+		for (Field field : request.getClass().getDeclaredFields()) {
+			String fieldName = field.getName();
+			content += "<" + fieldName + ">"
+					+ ReflectUtil.forceGet(field, request) + "</" + fieldName
+					+ ">";
+		}
+		
 		return requestTemplate.replaceFirst(requestName, name).replaceFirst(
 				reqeustContent, content);
 	}

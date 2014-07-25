@@ -2,20 +2,23 @@ package com.justwe.network;
 
 import com.justwe.bean.request.LoginRequest;
 import com.justwe.bean.response.LoginResponse;
+import com.justwe.util.Log;
 
-public class Login extends Networker<LoginRequest, LoginResponse> {
+public class Login extends Networker<LoginResponse> {
 
-	@Override
-	public void onResponse(LoginResponse response) {
-		System.out.println(response);
-	}
-
-	@Override
-	public void onError(String error) {
-		System.out.println(error);
+	public long login(String USER_ID, String PASSWORD) throws Exception {
+		LoginRequest login = new LoginRequest(USER_ID, PASSWORD, "");
+		LoginResponse response = getResult(login);
+		return response.getReturnCode();
 	}
 
 	public static void main(String[] args) {
-		new Login().execute(new LoginRequest("042957382", "111111", ""));
+		final String USER_ID = "042957382";
+		final String PASSWORD = "111111";
+		try {
+			Log.i("sessionID = " + new Login().login(USER_ID, PASSWORD));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
