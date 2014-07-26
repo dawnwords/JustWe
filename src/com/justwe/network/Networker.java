@@ -10,6 +10,7 @@ import java.net.URL;
 import com.justwe.bean.request.Request;
 import com.justwe.bean.request.RequestName;
 import com.justwe.bean.response.Response;
+import com.justwe.bean.session.Session;
 import com.justwe.util.IOUtil;
 import com.justwe.util.Log;
 import com.justwe.util.XMLUtil;
@@ -18,38 +19,40 @@ public abstract class Networker<P extends Response> {
 	private Request request;
 	private P response;
 	private Exception exception;
-	private Thread worker = new Thread(){
+	private Thread worker = new Thread() {
 		@Override
 		public void run() {
 			HttpURLConnection conn = getHTTPConnection();
 			if (conn == null) {
 				return;
 			}
-
-			PrintWriter writer = null;
-			BufferedReader reader = null;
-			try {
-				writer = new PrintWriter(conn.getOutputStream());
-				writer.write(XMLUtil.getRequestXML(getRequestName(), request));
-				writer.flush();
-				reader = new BufferedReader(new InputStreamReader(
-						conn.getInputStream()));
-				String response = "";
-				String line;
-				while ((line = reader.readLine()) != null) {
-					response += line;
-				}
-				processResponse(getResponseFromXML(response));
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				IOUtil.close(reader);
-				IOUtil.close(writer);
-			}
+			doPost(conn);
 		}
-
 	};
-	
+
+	private void doPost(HttpURLConnection conn) {
+		PrintWriter writer = null;
+		BufferedReader reader = null;
+		try {
+			writer = new PrintWriter(conn.getOutputStream());
+			writer.write(XMLUtil.getRequestXML(getRequestName(), request));
+			writer.flush();
+			reader = new BufferedReader(new InputStreamReader(
+					conn.getInputStream()));
+			String response = "";
+			String line;
+			while ((line = reader.readLine()) != null) {
+				response += line;
+			}
+			processResponse(getResponseFromXML(response));
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			IOUtil.close(reader);
+			IOUtil.close(writer);
+		}
+	}
+
 	private void processResponse(P response) {
 		if (response.getReturnCode() < 0) {
 			onError(response.getMessage());
@@ -58,13 +61,9 @@ public abstract class Networker<P extends Response> {
 		}
 	}
 
-	private String getURL() {
-		return "http://60.28.133.148:16955/tradeweb/mobileServlet";
-	}
-
 	@SuppressWarnings("unchecked")
 	private P getResponseFromXML(String responseString) throws Exception {
-		System.out.println(responseString);
+		Log.i(responseString);
 		ParameterizedType genericSuperclass = (ParameterizedType) getClass()
 				.getGenericSuperclass();
 		return XMLUtil.parseXML(responseString,
@@ -78,7 +77,7 @@ public abstract class Networker<P extends Response> {
 	private HttpURLConnection getHTTPConnection() {
 		HttpURLConnection conn = null;
 		try {
-			URL url = new URL(getURL());
+			URL url = new URL(Session.getInstance().getURL());
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
@@ -110,7 +109,7 @@ public abstract class Networker<P extends Response> {
 			notify();
 		}
 	}
-	
+
 	public P getResult(Request request) throws Exception {
 		this.request = request;
 		worker.start();
