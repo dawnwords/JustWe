@@ -11,16 +11,12 @@ public class ChangePassword extends Networker<Result> {
 		getResult(request);
 	}
 
-	public static void main(String[] args) {
-		try {
-			String password = Session.getInstance().getPassword();
+	public static void main(String[] args) throws Exception {
+		String password = Session.getInstance().getPassword();
 
-			new Login().login();
-			new ChangePassword().change(password);
-			new Logout().logout();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		new Login().login();
+		new ChangePassword().change(password);
+		new Logout().logout();
+
 	}
 }

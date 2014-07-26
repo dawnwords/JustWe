@@ -10,12 +10,8 @@ public class Logout extends Networker<Result> {
 		Session.getInstance().clearSessionId();
 	}
 
-	public static void main(String[] args) {
-		try {
-			new Login().login();
-			new Logout().logout();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public static void main(String[] args) throws Exception {
+		new Login().login();
+		new Logout().logout();
 	}
 }

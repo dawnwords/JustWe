@@ -12,12 +12,8 @@ public class Login extends Networker<LoginResponse> {
 		Session.getInstance().setSessionId(response.getReturnCode());
 	}
 
-	public static void main(String[] args) {
-		try {
-			new Login().login();
-			Log.i("sessionID = " + Session.getInstance().getSessionId());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public static void main(String[] args) throws Exception {
+		new Login().login();
+		Log.i("sessionID = " + Session.getInstance().getSessionId());
 	}
 }

@@ -1,20 +1,10 @@
 package com.justwe.bean.request;
 
-import com.justwe.bean.session.Session;
-
 @RequestName(value = "userlogoff")
-public class LogoutRequest implements Request {
-	private String USER_ID;
-	private long SESSION_ID;
+public class LogoutRequest extends BaseRequest {
 
-	public LogoutRequest() throws Exception{
-		USER_ID = Session.getInstance().getUserId();
-		SESSION_ID = Session.getInstance().getSessionId();
+	public LogoutRequest() throws Exception {
+		super();
 	}
 
-	@Override
-	public String toString() {
-		return "LogoutRequest [USER_ID=" + USER_ID + ", SESSION_ID="
-				+ SESSION_ID + "]";
-	}
 }

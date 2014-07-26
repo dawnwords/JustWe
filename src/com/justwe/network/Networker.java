@@ -3,7 +3,6 @@ package com.justwe.network;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.reflect.ParameterizedType;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -13,6 +12,7 @@ import com.justwe.bean.response.Response;
 import com.justwe.bean.session.Session;
 import com.justwe.util.IOUtil;
 import com.justwe.util.Log;
+import com.justwe.util.ReflectUtil;
 import com.justwe.util.XMLUtil;
 
 public abstract class Networker<P extends Response> {
@@ -64,10 +64,9 @@ public abstract class Networker<P extends Response> {
 	@SuppressWarnings("unchecked")
 	private P getResponseFromXML(String responseString) throws Exception {
 		Log.i(responseString);
-		ParameterizedType genericSuperclass = (ParameterizedType) getClass()
-				.getGenericSuperclass();
-		return XMLUtil.parseXML(responseString,
-				(Class<P>) genericSuperclass.getActualTypeArguments()[0]);
+		Class<?> c = (Class<?>) ReflectUtil.getGenericClass(getClass()
+				.getGenericSuperclass());
+		return (P) XMLUtil.parseXML(responseString, c);
 	}
 
 	private String getRequestName() {

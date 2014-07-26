@@ -36,4 +36,8 @@ public class ReflectUtil {
 		}
 		return result;
 	}
+
+	public static Type getGenericClass(Type type) {
+		return (Class<?>) ((ParameterizedType) type).getActualTypeArguments()[0];
+	}
 }
