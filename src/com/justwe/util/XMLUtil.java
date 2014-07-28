@@ -55,32 +55,6 @@ public class XMLUtil {
 			}
 			return result;
 		}
-		// T result = clazz.newInstance();
-		// for (Field field : ReflectUtil.getAllFields(result.getClass())) {
-		// String name = field.getName();
-		// Matcher m = getXMLNodePattern(name).matcher(xml);
-		// if (m.find()) {
-		// Class<?> fieldClass = field.getType();
-		// String content = removeTag(m.group());
-		// Object value;
-		// if (int.class.equals(fieldClass)) {
-		// value = Integer.parseInt(content);
-		// } else if (long.class.equals(fieldClass)) {
-		// value = Long.parseLong(content);
-		// } else if (double.class.equals(fieldClass)) {
-		// value = Double.parseDouble(content);
-		// } else if (String.class.equals(fieldClass)) {
-		// value = content;
-		// } else if (List.class.equals(fieldClass)) {
-		// Class<?> c = ReflectUtil.getFieldGenericClass(field);
-		// value = parseXML2List(content, c);
-		// } else {
-		// value = parseXML(content, fieldClass);
-		// }
-		// ReflectUtil.forceSet(field, result, value);
-		// }
-		// }
-		// return result;
 	}
 
 	private static List<Object> parseXML2List(String xml, Type recType)

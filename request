@@ -60,8 +60,7 @@
     <CU_LG>
         是否刚登录
         0：不是；
-        1：是
-        【说明：此时返回包的NEW_T为0，<TDRP>节点没有，但TD_TTL成交记录总数需要计算返回】
+        1：是 【说明：此时返回包的NEW_T为0，<TDRP>节点没有，但TD_TTL成交记录总数需要计算返回】
     </CU_LG>
 </REQ>
 
@@ -74,7 +73,7 @@
     <STARTNUM>第几条</STARTNUM>
     <RECCNT>要多少条记录</RECCNT>
     <SORTFLD>排序字段</SORTFLD>
-    <ISDESC>升降序  0：升序；1：降序；</ISDESC>
+    <ISDESC>升降序  0：升序 1：降序</ISDESC>
     <UT>更新时间, 微妙表示，第一次传可传0</UT>
 </REQ>
 
@@ -85,11 +84,7 @@
     <STARTNUM>第几条</STARTNUM>
     <RECCNT>要多少条记录</RECCNT>
     <SORTFLD>排序字段</SORTFLD>
-    <ISDESC>
-        升降序
-        0：升序
-        1：降序
-    </ISDESC>
+    <ISDESC>  升降序	0：升序 1：降序</ISDESC>
 </REQ>
 
 <REQ name="my_weekorder_query">
@@ -101,11 +96,7 @@
     <STARTNUM>第几条</STARTNUM>
     <RECCNT>要多少条记录</RECCNT>
     <SORTFLD>排序字段</SORTFLD>
-    <ISDESC>
-        升降序
-        0：升序
-        1：降序
-    </ISDESC>
+    <ISDESC>  升降序	0：升序 1：降序</ISDESC>
     <UT>更新时间, 微妙表示，第一次传可传0</UT>
 </REQ>
 
