@@ -31,30 +31,37 @@ public class XMLUtil {
 
 	public static Object parseXML(String xml, Type type) throws Exception {
 		String content = removeTag(xml);
+		if ("".equals(content)) {
+			return "";
+		}
 		if (int.class.equals(type)) {
 			return Integer.parseInt(content);
-		} else if (long.class.equals(type)) {
+		}
+		if (long.class.equals(type)) {
 			return Long.parseLong(content);
-		} else if (double.class.equals(type)) {
+		}
+		if (double.class.equals(type)) {
 			return Double.parseDouble(content);
-		} else if (String.class.equals(type)) {
+		}
+		if (String.class.equals(type)) {
 			return content;
-		} else if (type instanceof ParameterizedType
+		}
+		if (type instanceof ParameterizedType
 				&& List.class.equals(((ParameterizedType) type).getRawType())) {
 			Type c = ReflectUtil.getGenericClass(type);
 			return parseXML2List(content, c);
-		} else {
-			Object result = ((Class<?>) type).newInstance();
-			for (Field field : ReflectUtil.getAllFields(result.getClass())) {
-				String name = field.getName();
-				Matcher m = getXMLNodePattern(name).matcher(xml);
-				if (m.find()) {
-					Object value = parseXML(m.group(), field.getGenericType());
-					ReflectUtil.forceSet(field, result, value);
-				}
-			}
-			return result;
 		}
+
+		Object result = ((Class<?>) type).newInstance();
+		for (Field field : ReflectUtil.getAllFields(result.getClass())) {
+			String name = field.getName();
+			Matcher m = getXMLNodePattern(name).matcher(xml);
+			if (m.find()) {
+				Object value = parseXML(m.group(), field.getGenericType());
+				ReflectUtil.forceSet(field, result, value);
+			}
+		}
+		return result;
 	}
 
 	private static List<Object> parseXML2List(String xml, Type recType)
