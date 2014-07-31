@@ -12,8 +12,8 @@ public class OrderSubmitRequest extends BaseRequest {
 	private int CLOSEMODE;
 	private int TIMEFLAG;
 
-	public OrderSubmitRequest(String cUSTOMER_ID, int bUY_SELL,
-			String cOMMODITY_ID, double pRICE, int qTY, int sETTLE_BASIS,
+	private OrderSubmitRequest(String cUSTOMER_ID, String cOMMODITY_ID,
+			int qTY, double pRICE, int bUY_SELL, int sETTLE_BASIS,
 			int cLOSEMODE, int tIMEFLAG) throws Exception {
 		super();
 		CUSTOMER_ID = cUSTOMER_ID;
@@ -24,6 +24,37 @@ public class OrderSubmitRequest extends BaseRequest {
 		SETTLE_BASIS = sETTLE_BASIS;
 		CLOSEMODE = cLOSEMODE;
 		TIMEFLAG = tIMEFLAG;
+	}
+
+	private OrderSubmitRequest(String cUSTOMER_ID, String cOMMODITY_ID,
+			int qTY, double pRICE, int bUY_SELL, int sETTLE_BASIS)
+			throws Exception {
+		this(cUSTOMER_ID, cOMMODITY_ID, qTY, pRICE, bUY_SELL, sETTLE_BASIS, 1,
+				2);
+	}
+
+	public static OrderSubmitRequest buyOpenPosition(String cUSTOMER_ID,
+			String cOMMODITY_ID, int qTY, double pRICE) throws Exception {
+		return new OrderSubmitRequest(cUSTOMER_ID, cOMMODITY_ID, qTY, pRICE, 1,
+				1);
+	}
+
+	public static OrderSubmitRequest sellOpenPosition(String cUSTOMER_ID,
+			String cOMMODITY_ID, int qTY, double pRICE) throws Exception {
+		return new OrderSubmitRequest(cUSTOMER_ID, cOMMODITY_ID, qTY, pRICE, 2,
+				1);
+	}
+
+	public static OrderSubmitRequest buyClosePosition(String cUSTOMER_ID,
+			String cOMMODITY_ID, int qTY, double pRICE) throws Exception {
+		return new OrderSubmitRequest(cUSTOMER_ID, cOMMODITY_ID, qTY, pRICE, 1,
+				2);
+	}
+
+	public static OrderSubmitRequest sellClosePosition(String cUSTOMER_ID,
+			String cOMMODITY_ID, int qTY, double pRICE) throws Exception {
+		return new OrderSubmitRequest(cUSTOMER_ID, cOMMODITY_ID, qTY, pRICE, 2,
+				2);
 	}
 
 	@Override
