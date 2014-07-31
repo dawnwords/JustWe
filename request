@@ -89,14 +89,14 @@
 
 <REQ name="my_weekorder_query">
     <USER_ID>登录用户ID</USER_ID>
-    <BUY_SELL>买卖(1/2)（空表示所有）</BUY_SELL>
-    <ORDER_NO>委托单号（空表示所有）</ORDER_NO>
     <COMMODITY_ID>商品统一代码（空表示所有）</COMMODITY_ID>
     <SESSION_ID>SESSION_ID</SESSION_ID>
     <STARTNUM>第几条</STARTNUM>
     <RECCNT>要多少条记录</RECCNT>
     <SORTFLD>排序字段</SORTFLD>
-    <ISDESC>  升降序	0：升序 1：降序</ISDESC>
+    <ISDESC>  升降序	0：升序 1：降序</ISDESC>    
+    <BUY_SELL>买卖(1/2)（空表示所有）</BUY_SELL>
+    <ORDER_NO>委托单号（空表示所有）</ORDER_NO>
     <UT>更新时间, 微妙表示，第一次传可传0</UT>
 </REQ>
 
