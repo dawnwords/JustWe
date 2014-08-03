@@ -64,9 +64,8 @@ public abstract class Networker<P extends Response> {
 	@SuppressWarnings("unchecked")
 	private P getResponseFromXML(String responseString) throws Exception {
 		Log.i(responseString);
-		Class<?> c = (Class<?>) ReflectUtil.getGenericClass(getClass()
-				.getGenericSuperclass());
-		return (P) XMLUtil.parseXML(responseString, c);
+		return (P) XMLUtil.parseXML(responseString,
+				ReflectUtil.getGenericClass(getClass().getGenericSuperclass()));
 	}
 
 	private String getRequestName() {

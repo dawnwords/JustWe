@@ -2,9 +2,8 @@ package com.justwe.bean.response;
 
 import java.util.List;
 
-public class ListResponse<T> implements Response {
-	protected Result RESULT;
-	protected List<T> RESULTLIST;
+public abstract class ListResponse implements Response {
+	private Result RESULT;
 
 	@Override
 	public long getReturnCode() {
@@ -19,10 +18,8 @@ public class ListResponse<T> implements Response {
 	@Override
 	public String toString() {
 		return "ListResponse [RESULT=" + RESULT + ", RESULTLIST="
-				+ RESULTLIST + "]";
+				+ getResultList() + "]";
 	}
 
-	public List<T> getResultList() {
-		return RESULTLIST;
-	}
+	protected abstract List<?> getResultList();
 }
