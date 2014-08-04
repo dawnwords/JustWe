@@ -21,5 +21,5 @@ public abstract class ListResponse implements Response {
 				+ getResultList() + "]";
 	}
 
-	protected abstract List<?> getResultList();
+	public abstract List<?> getResultList();
 }
