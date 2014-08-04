@@ -6,7 +6,7 @@ public class QuerySystemTimeRequest extends BaseRequest {
 	private int TD_CNT;
 	private int CU_LG;
 
-	public QuerySystemTimeRequest(String lAST_ID, int tD_CNT, int cU_LG)
+	private QuerySystemTimeRequest(String lAST_ID, int tD_CNT, int cU_LG)
 			throws Exception {
 		super();
 		LAST_ID = lAST_ID;
@@ -14,8 +14,8 @@ public class QuerySystemTimeRequest extends BaseRequest {
 		CU_LG = cU_LG;
 	}
 
-	public QuerySystemTimeRequest(int tD_CNT, int cU_LG) throws Exception {
-		this("", tD_CNT, cU_LG);
+	public QuerySystemTimeRequest (int tD_CNT) throws Exception {
+		this("", tD_CNT, 0);
 	}
 
 	@Override

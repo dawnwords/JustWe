@@ -31,9 +31,6 @@ public class XMLUtil {
 
 	public static Object parseXML(String xml, Type type) throws Exception {
 		String content = removeTag(xml);
-		if ("".equals(content)) {
-			return "";
-		}
 		if (int.class.equals(type)) {
 			return Integer.parseInt(content);
 		}
@@ -45,6 +42,9 @@ public class XMLUtil {
 		}
 		if (String.class.equals(type)) {
 			return content;
+		}
+		if ("".equals(content)) {
+			return null;
 		}
 		if (type instanceof ParameterizedType
 				&& List.class.equals(((ParameterizedType) type).getRawType())) {

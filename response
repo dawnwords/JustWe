@@ -147,9 +147,9 @@
         <L_ID>最后广播ID(空表示无消息)</L_ID>
         <CON>广播消息内容</CON>
         <BCRS>
-        <BCS>
-        <BC>广播消息内容</BC>
-        </BCS>
+	        <BCS>
+	        	<BC>广播消息内容</BC>
+	        </BCS>
         </BCRS>
         <NEW_T>
             是否有新成交：
@@ -159,9 +159,9 @@
         <TD_TTL>成交记录总数</TD_TTL>
         <TDRP>
             <TDS>
-            <OR_N>委托单号</OR_N>
-            <CO_I>商品统一代码</CO_I>
-            <TDQTY>当前成交数量</TDQTY>
+	            <OR_N>委托单号</OR_N>
+	            <CO_I>商品统一代码</CO_I>
+	            <TDQTY>当前成交数量</TDQTY>
             </TDS>
         </TDRP>
         <DAY>交易日(格式: dd )</DAY>
