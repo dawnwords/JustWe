@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.justwe.bean.data.CommodityDataRec;
 
-public class QueryCommodityResponse extends ListResponse {
+public class QueryCommodityDataResponse extends ListResponse {
 
 	private List<CommodityDataRec> RESULTLIST;
 
