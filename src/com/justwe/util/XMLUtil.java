@@ -2,7 +2,6 @@ package com.justwe.util;
 
 import java.lang.reflect.*;
 import java.util.*;
-import java.util.regex.*;
 
 import com.justwe.bean.request.Request;
 
@@ -55,7 +54,7 @@ public class XMLUtil {
 		Object result = ((Class<?>) type).newInstance();
 		for (Field field : ReflectUtil.getAllFields(result.getClass())) {
 			String name = field.getName();
-			Matcher m = getXMLNodePattern(name).matcher(xml);
+			XMLMatcher m = new XMLMatcher(xml, name);
 			if (m.find()) {
 				Object value = parseXML(m.group(), field.getGenericType());
 				ReflectUtil.forceSet(field, result, value);
@@ -67,18 +66,12 @@ public class XMLUtil {
 	private static List<Object> parseXML2List(String xml, Type recType)
 			throws Exception {
 		List<Object> result = new LinkedList<Object>();
-		Matcher recMatcher = getXMLNodePattern(getTag(xml)).matcher(xml);
+		XMLMatcher recMatcher = new XMLMatcher(xml, getTag(xml));
 		while (recMatcher.find()) {
 			Object obj = parseXML(recMatcher.group(), recType);
 			result.add(obj);
 		}
 		return result;
-	}
-
-	private static Pattern getXMLNodePattern(String tag) {
-		String recTag = "<name[^>]*(/>|>(\\S|\\s)*?</name>)";
-		recTag = recTag.replaceAll("name", tag);
-		return Pattern.compile(recTag);
 	}
 
 	private static String removeTag(String xml) {
