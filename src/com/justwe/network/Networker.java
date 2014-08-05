@@ -110,6 +110,7 @@ public abstract class Networker<P extends Response> {
 
 	public P getResult(Request request) throws Exception {
 		this.request = request;
+		Log.i(request);
 		worker.start();
 		synchronized (this) {
 			try {
