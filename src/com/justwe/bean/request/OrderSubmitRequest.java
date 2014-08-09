@@ -1,5 +1,7 @@
 package com.justwe.bean.request;
 
+import com.justwe.bean.session.Session;
+
 @RequestName(value = "ordersubmit")
 public class OrderSubmitRequest extends BaseRequest {
 
@@ -12,11 +14,11 @@ public class OrderSubmitRequest extends BaseRequest {
 	private int CLOSEMODE;
 	private int TIMEFLAG;
 
-	private OrderSubmitRequest(String cUSTOMER_ID, String cOMMODITY_ID,
-			int qTY, double pRICE, int bUY_SELL, int sETTLE_BASIS,
-			int cLOSEMODE, int tIMEFLAG) throws Exception {
+	private OrderSubmitRequest(String cOMMODITY_ID, int qTY, double pRICE,
+			int bUY_SELL, int sETTLE_BASIS, int cLOSEMODE, int tIMEFLAG)
+			throws Exception {
 		super();
-		CUSTOMER_ID = cUSTOMER_ID;
+		CUSTOMER_ID = Session.getInstance().getCustomerId();
 		BUY_SELL = bUY_SELL;
 		COMMODITY_ID = cOMMODITY_ID;
 		PRICE = pRICE;
@@ -26,35 +28,29 @@ public class OrderSubmitRequest extends BaseRequest {
 		TIMEFLAG = tIMEFLAG;
 	}
 
-	private OrderSubmitRequest(String cUSTOMER_ID, String cOMMODITY_ID,
-			int qTY, double pRICE, int bUY_SELL, int sETTLE_BASIS)
-			throws Exception {
-		this(cUSTOMER_ID, cOMMODITY_ID, qTY, pRICE, bUY_SELL, sETTLE_BASIS, 1,
-				2);
+	private OrderSubmitRequest(String cOMMODITY_ID, int qTY, double pRICE,
+			int bUY_SELL, int sETTLE_BASIS) throws Exception {
+		this(cOMMODITY_ID, qTY, pRICE, bUY_SELL, sETTLE_BASIS, 1, 2);
 	}
 
-	public static OrderSubmitRequest buyOpenPosition(String cUSTOMER_ID,
-			String cOMMODITY_ID, int qTY, double pRICE) throws Exception {
-		return new OrderSubmitRequest(cUSTOMER_ID, cOMMODITY_ID, qTY, pRICE, 1,
-				1);
+	public static OrderSubmitRequest buyOpenPosition(String cOMMODITY_ID,
+			int qTY, double pRICE) throws Exception {
+		return new OrderSubmitRequest(cOMMODITY_ID, qTY, pRICE, 1, 1);
 	}
 
-	public static OrderSubmitRequest sellOpenPosition(String cUSTOMER_ID,
-			String cOMMODITY_ID, int qTY, double pRICE) throws Exception {
-		return new OrderSubmitRequest(cUSTOMER_ID, cOMMODITY_ID, qTY, pRICE, 2,
-				1);
+	public static OrderSubmitRequest sellOpenPosition(String cOMMODITY_ID,
+			int qTY, double pRICE) throws Exception {
+		return new OrderSubmitRequest(cOMMODITY_ID, qTY, pRICE, 2, 1);
 	}
 
-	public static OrderSubmitRequest buyClosePosition(String cUSTOMER_ID,
-			String cOMMODITY_ID, int qTY, double pRICE) throws Exception {
-		return new OrderSubmitRequest(cUSTOMER_ID, cOMMODITY_ID, qTY, pRICE, 1,
-				2);
+	public static OrderSubmitRequest buyClosePosition(String cOMMODITY_ID,
+			int qTY, double pRICE) throws Exception {
+		return new OrderSubmitRequest(cOMMODITY_ID, qTY, pRICE, 1, 2);
 	}
 
-	public static OrderSubmitRequest sellClosePosition(String cUSTOMER_ID,
-			String cOMMODITY_ID, int qTY, double pRICE) throws Exception {
-		return new OrderSubmitRequest(cUSTOMER_ID, cOMMODITY_ID, qTY, pRICE, 2,
-				2);
+	public static OrderSubmitRequest sellClosePosition(String cOMMODITY_ID,
+			int qTY, double pRICE) throws Exception {
+		return new OrderSubmitRequest(cOMMODITY_ID, qTY, pRICE, 2, 2);
 	}
 
 	@Override

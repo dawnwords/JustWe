@@ -56,5 +56,9 @@ public class Session {
 	public String getPassword() {
 		return properties.getProperty("password");
 	}
+	
+	public String getCustomerId(){
+		return properties.getProperty("customerId");
+	}
 
 }

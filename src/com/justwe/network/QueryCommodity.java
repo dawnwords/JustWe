@@ -5,7 +5,6 @@ import java.util.List;
 import com.justwe.bean.data.CommodityRec;
 import com.justwe.bean.request.QueryCommodityRequest;
 import com.justwe.bean.response.QueryCommodityResponse;
-import com.justwe.util.Log;
 
 public class QueryCommodity extends Networker<QueryCommodityResponse> {
 	public List<CommodityRec> query(String commodityId) throws Exception {
@@ -19,8 +18,7 @@ public class QueryCommodity extends Networker<QueryCommodityResponse> {
 	
 	public static void main(String[] args) throws Exception{
 		new Login().login();
-		Log.i(new QueryCommodity().queryAll().size());
-		Log.i(new QueryCommodity().query("B40017"));
+		new QueryCommodity().queryAll();
 		new Logout().logout();
 	}
 }
