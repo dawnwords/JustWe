@@ -13,7 +13,7 @@ public class BaseRequest implements Request {
 
 	@Override
 	public String toString() {
-		return "LogoutRequest [USER_ID=" + USER_ID + ", SESSION_ID="
+		return "BaseRequest [USER_ID=" + USER_ID + ", SESSION_ID="
 				+ SESSION_ID + "]";
 	}
 }

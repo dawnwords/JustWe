@@ -20,6 +20,78 @@ public class TradeRec {
 	private int TR_T;
 	private int TIMEFLAG;
 
+	public String getTR_N() {
+		return TR_N;
+	}
+
+	public String getOR_N() {
+		return OR_N;
+	}
+
+	public String getTI() {
+		return TI;
+	}
+
+	public int getTY() {
+		return TY;
+	}
+
+	public int getSE_F() {
+		return SE_F;
+	}
+
+	public String getTR_I() {
+		return TR_I;
+	}
+
+	public String getFI_I() {
+		return FI_I;
+	}
+
+	public String getCU_I() {
+		return CU_I;
+	}
+
+	public String getCO_I() {
+		return CO_I;
+	}
+
+	public double getPR() {
+		return PR;
+	}
+
+	public int getQTY() {
+		return QTY;
+	}
+
+	public double getO_PR() {
+		return O_PR;
+	}
+
+	public double getLIQPL() {
+		return LIQPL;
+	}
+
+	public double getCOMM() {
+		return COMM;
+	}
+
+	public String getS_TR_N() {
+		return S_TR_N;
+	}
+
+	public String getA_TR_N() {
+		return A_TR_N;
+	}
+
+	public int getTR_T() {
+		return TR_T;
+	}
+
+	public int getTIMEFLAG() {
+		return TIMEFLAG;
+	}
+
 	@Override
 	public String toString() {
 		return "TradeRec [成交号=" + TR_N + ", 委托单号=" + OR_N + ", 成交时间=" + TI

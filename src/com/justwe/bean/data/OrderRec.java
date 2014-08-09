@@ -19,6 +19,74 @@ public class OrderRec {
 	private int B_T_T;
 	private int TIMEFLAG;
 
+	public String getOR_N() {
+		return OR_N;
+	}
+
+	public String getTIME() {
+		return TIME;
+	}
+
+	public int getSTA() {
+		return STA;
+	}
+
+	public int getTYPE() {
+		return TYPE;
+	}
+
+	public int getSE_F() {
+		return SE_F;
+	}
+
+	public String getTR_I() {
+		return TR_I;
+	}
+
+	public String getFI_I() {
+		return FI_I;
+	}
+
+	public String getCU_I() {
+		return CU_I;
+	}
+
+	public String getCO_I() {
+		return CO_I;
+	}
+
+	public double getPRI() {
+		return PRI;
+	}
+
+	public int getQTY() {
+		return QTY;
+	}
+
+	public int getBAL() {
+		return BAL;
+	}
+
+	public double getL_P() {
+		return L_P;
+	}
+
+	public String getWD_T() {
+		return WD_T;
+	}
+
+	public int getC_F() {
+		return C_F;
+	}
+
+	public int getB_T_T() {
+		return B_T_T;
+	}
+
+	public int getTIMEFLAG() {
+		return TIMEFLAG;
+	}
+
 	@Override
 	public String toString() {
 		return "OrderRec [委托单号=" + OR_N + ", 下单时间=" + TIME + ", 状态:"

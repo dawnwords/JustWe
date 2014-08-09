@@ -22,6 +22,78 @@ public class FirmInfoRec {
 	private double OC;
 	private double PGF;
 
+	public String getFI() {
+		return FI;
+	}
+
+	public String getFN() {
+		return FN;
+	}
+
+	public double getIF() {
+		return IF;
+	}
+
+	public double getCM() {
+		return CM;
+	}
+
+	public double getCF() {
+		return CF;
+	}
+
+	public double getRM() {
+		return RM;
+	}
+
+	public double getRF() {
+		return RF;
+	}
+
+	public double getOR_F() {
+		return OR_F;
+	}
+
+	public double getOT_F() {
+		return OT_F;
+	}
+
+	public double getUF() {
+		return UF;
+	}
+
+	public double getFEE() {
+		return FEE;
+	}
+
+	public double getPL() {
+		return PL;
+	}
+
+	public List<String> getCDLST() {
+		return CDLST;
+	}
+
+	public double getEQT() {
+		return EQT;
+	}
+
+	public double getIOF() {
+		return IOF;
+	}
+
+	public double getHPF() {
+		return HPF;
+	}
+
+	public double getOC() {
+		return OC;
+	}
+
+	public double getPGF() {
+		return PGF;
+	}
+
 	@Override
 	public String toString() {
 		return "FirmInfoRec [交易商ID=" + FI + ", 交易商名称=" + FN + ", 期初余额=" + IF
