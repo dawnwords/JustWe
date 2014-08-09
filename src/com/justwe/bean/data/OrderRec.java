@@ -15,9 +15,9 @@ public class OrderRec {
 	private int BAL;
 	private double L_P;
 	private String WD_T;
-	private int C_F;
+	private String C_F;
 	private int B_T_T;
-	private int TIMEFLAG;
+	private String TIMEFLAG;
 
 	public String getOR_N() {
 		return OR_N;
@@ -75,7 +75,7 @@ public class OrderRec {
 		return WD_T;
 	}
 
-	public int getC_F() {
+	public String getC_F() {
 		return C_F;
 	}
 
@@ -83,7 +83,7 @@ public class OrderRec {
 		return B_T_T;
 	}
 
-	public int getTIMEFLAG() {
+	public String getTIMEFLAG() {
 		return TIMEFLAG;
 	}
 
@@ -95,9 +95,18 @@ public class OrderRec {
 				+ ", 交易员ID=" + TR_I + ", 交易商ID=" + FI_I + ", 二级客户代码=" + CU_I
 				+ ", 商品统一代码=" + CO_I + ", 委托价格=" + PRI + ", 委托数量=" + QTY
 				+ ", 剩余量=" + BAL + ", 指定平仓价=" + L_P + ", 撤单时间=" + WD_T
-				+ ", 平仓标志=" + ClosePositionFlag.valuesOf(C_F).getName()
-				+ ", 仓单交易类型=" + OrderType.valuesOf(B_T_T).getName() + ", 平仓类型="
-				+ ClosePositionType.valuesOf(TIMEFLAG).getName() + "]";
+				+ getNameOfC_F() + ", 仓单交易类型="
+				+ OrderType.valuesOf(B_T_T).getName() + getNameOfTIMEFLAG()
+				+ "]";
 	}
 
+	private String getNameOfC_F() {
+		return ("".equals(C_F) ? "" : (", 平仓标志=" + ClosePositionFlag.valuesOf(
+				Integer.parseInt(C_F)).getName()));
+	}
+
+	private String getNameOfTIMEFLAG() {
+		return ("".equals(TIMEFLAG) ? "" : (", 平仓类型=" + ClosePositionType
+				.valuesOf(Integer.parseInt(TIMEFLAG)).getName()));
+	}
 }

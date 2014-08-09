@@ -9,5 +9,8 @@ public class QueryWeekOrderRequest extends QueryMyOrderRequest {
 		super(cOMMODITY_ID, sTARTNUM, rECCNT, sORTFLD, iSDESC, bUY_SELL, oRDER_NO, uT);
 	}
 
-
+	@Override
+	public String toString() {
+		return super.toString().replace("QueryMyOrderRequest", "QueryWeekOrderRequest");
+	}
 }

@@ -93,9 +93,9 @@ public class QueryOrder extends Networker<QueryOrderResponse> {
 		return getResult(request).getResultList();
 	}
 
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args) throws Exception {
 		new Login().login();
-		new QueryOrder().queryMyOrderAllAsc(0, 100, "OR_N", 0);
+		new QueryOrder().queryWeekOrderAllAsc(0, 100, "OR_N", 0);
 		new Logout().logout();
 	}
 }
