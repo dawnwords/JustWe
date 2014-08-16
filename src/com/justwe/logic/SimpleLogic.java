@@ -12,12 +12,19 @@ import com.justwe.network.QueryCommodityData;
 import com.justwe.network.QueryHolding;
 
 public class SimpleLogic {
-	public static void main(String[] args) throws Exception {
-		final TimePair tp1 = new TimePair(new Time(9, 10), new Time(11, 30));
-		final TimePair tp2 = new TimePair(new Time(13, 30), new Time(16, 0));
-		final TimePair tp3 = new TimePair(new Time(19, 0), new Time(23, 59));
-		final TimePair tp4 = new TimePair(new Time(0, 0), new Time(3, 0));
 
+	private static final double RATIO = 5.3616;
+	private static final double AVERAGE = 88.7217;
+	private static final double VARIANCE = 6.3430;
+	private static final int MTZJJ_QUANTITY = 1;
+	private static final int YJLL_QUANTITY = (int) (MTZJJ_QUANTITY * RATIO);
+	
+	private static final TimePair tp1 = new TimePair(new Time(9, 10), new Time(11, 30));
+	private static final TimePair tp2 = new TimePair(new Time(13, 30), new Time(16, 0));
+	private static final TimePair tp3 = new TimePair(new Time(19, 0), new Time(23, 59));
+	private static final TimePair tp4 = new TimePair(new Time(0, 0), new Time(3, 0));
+
+	public static void main(String[] args) throws Exception {
 		new Login().login();
 
 		while (checkCurrentTimeBetween(tp1) && checkCurrentTimeBetween(tp2)
@@ -25,30 +32,23 @@ public class SimpleLogic {
 			CommodityDataRec MTZJJDataRec = getCommodityDataRec("茅台镇基酒");
 			CommodityDataRec YJLLDataRec = getCommodityDataRec("原酒崃岭");
 
-			final double ratio = 5.3616;
-			final double average = 88.7217;
-			final double variance = 6.3430;
-			final int MTZJJQuantity = 1;
-			final int YJLLQuantity = (int) (MTZJJQuantity * ratio);
-
 			double spread = MTZJJDataRec.getLAST() - YJLLDataRec.getLAST()
-					* ratio;
+					* RATIO;
 
 			if (!checkHolding(MTZJJDataRec.getCO_I())
 					&& !checkHolding(YJLLDataRec.getCO_I())) {
-				if (spread > average + 2 * variance) {
-					buyOpenPosition(MTZJJDataRec, MTZJJQuantity);
-					sellOpenPosition(YJLLDataRec, YJLLQuantity);
+				if (spread > AVERAGE + 2 * VARIANCE) {
+					buyOpenPosition(MTZJJDataRec, MTZJJ_QUANTITY);
+					sellOpenPosition(YJLLDataRec, YJLL_QUANTITY);
 				}
-
-				if (spread < average - 2 * variance) {
-					sellOpenPosition(MTZJJDataRec, MTZJJQuantity);
-					buyOpenPosition(YJLLDataRec, YJLLQuantity);
+				if (spread < AVERAGE - 2 * VARIANCE) {
+					sellOpenPosition(MTZJJDataRec, MTZJJ_QUANTITY);
+					buyOpenPosition(YJLLDataRec, YJLL_QUANTITY);
 				}
 			} else {
 				HoldingRec YJLLHolding = getHoldingRec(YJLLDataRec.getCO_I());
 				HoldingRec MTZJJHolding = getHoldingRec(MTZJJDataRec.getCO_I());
-				if (spread <= average) {
+				if (spread <= AVERAGE) {
 					if (YJLLHolding.getBU_H() != 0
 							&& MTZJJHolding.getSE_H() != 0) {
 						sellClosePosition(YJLLDataRec, YJLLHolding.getBU_H());
