@@ -30,8 +30,6 @@ public class Logic4 {
 	private static void sleepOneMinute() throws InterruptedException {
 		Thread.sleep(60 * 1000);
 	}
-
-	
 	
 	private static boolean checkTimeBetween(Calendar c, int startH, int startM,
 			int endH, int endM) {
